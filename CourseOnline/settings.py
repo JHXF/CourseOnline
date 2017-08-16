@@ -11,10 +11,14 @@ https://docs.djangoproject.com/en/1.11/ref/settings/
 """
 
 import os
+import sys
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-
+# 通过将app应用归纳到apps目录下，实现统一管理，需要添加搜索路径,0表示放在第一位置进行搜索
+sys.path.insert(0, os.path.join(BASE_DIR, 'apps'))
+# 通过源码安装xadmin并将xadmin放在extra_apps目录下，添加搜索路径
+sys.path.insert(0, os.path.join(BASE_DIR, 'extra_apps'))
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.11/howto/deployment/checklist/
@@ -29,15 +33,20 @@ ALLOWED_HOSTS = []
 
 
 # Application definition
-
+# 注册APP
 INSTALLED_APPS = [
-    'django.contrib.admin',
+    # 'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'users',
+    'courses',
+    'organization',
+    'operation',
+    'xadmin',  # 使用xadmin替换django默认的后天admin
+    'crispy_forms'
 ]
 # 使用自定义用户模型
 AUTH_USER_MODEL = 'users.UserProfile'
